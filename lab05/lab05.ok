@@ -1,6 +1,6 @@
 {
     "name": "Lab 5",
-    "endpoint": "cal/cs61a/fa22/lab05",
+    "endpoint": "cal/cs61a/fa23/lab05",
     "src": [
         "lab05.py"
     ],
@@ -9,13 +9,12 @@
         "tests/*.py": "ok_test"
     },
     "default_tests": [
+        "berry_finder",
+        "replace_loki_at_leaf",
         "distance",
         "closer_city",
         "check_city_abstraction",
-        "berry_finder",
-        "sprout_leaves",
-        "check_abstraction",
-        "flatten"
+        "pokemon"
     ],
     "protocols": [
         "restore",
