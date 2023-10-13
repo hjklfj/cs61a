@@ -15,7 +15,9 @@ def berry_finder(t):
     >>> berry_finder(t)
     True
     """
-    "*** YOUR CODE HERE ***"
+    if label(t) == 'berry':
+        return True
+    return True in [berry_finder(branch) for branch in branches(t)]
 
 
 def replace_loki_at_leaf(t, lokis_replacement):
@@ -47,8 +49,11 @@ def replace_loki_at_leaf(t, lokis_replacement):
     >>> laerad == yggdrasil # Make sure original tree is unmodified
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    if is_leaf(t) and label(t) == 'loki':
+        return tree(lokis_replacement)
+    else:
+        bs = [replace_loki_at_leaf(b, lokis_replacement) for b in branches(t)]
+        return tree(label(t), bs)
 
 
 # Tree ADT
@@ -146,7 +151,7 @@ def distance(city_a, city_b):
     >>> distance(city_c, city_d)
     5.0
     """
-    "*** YOUR CODE HERE ***"
+    return sqrt((get_lat(city_a)-get_lat(city_b)) ** 2 + (get_lon(city_a)-get_lon(city_b)) ** 2)
 
 def closer_city(lat, lon, city_a, city_b):
     """
@@ -163,7 +168,11 @@ def closer_city(lat, lon, city_a, city_b):
     >>> closer_city(41.29, 174.78, bucharest, vienna)
     'Bucharest'
     """
-    "*** YOUR CODE HERE ***"
+    city_c = make_city('temporary_city', lat, lon)
+    if distance(city_a, city_c) < distance(city_b, city_c):
+        return get_name(city_a)
+    else:
+        return get_name(city_b)
 
 def check_city_abstraction():
     """
@@ -249,7 +258,12 @@ def dejavu(t, n):
     >>> dejavu(my_tree, 5) # Sums of partial paths like 2 -> 3 don ’t count
     False
     """
-    "*** YOUR CODE HERE ***"
+    if is_leaf(t) and n == label(t):
+        return True
+    elif is_leaf(t) and n != label(t):
+        return False
+    else:
+        return True in [dejavu(b, n-label(t)) for b in branches(t)]
 
 
 def hailstone_tree(n, h):
@@ -270,11 +284,11 @@ def hailstone_tree(n, h):
         5
           10
     """
-    if _________________________________:
-        return _________________________________
-    branches = _________________________________
-    if ___________ and ___________ and ___________:
-        branches += _________________________________
+    if h == 0:
+        return tree(n)
+    branches = [hailstone_tree(2*n, h-1)]
+    if (n-1)%3 == 0 and (n-1)//3%2 == 1 and (n-1)//3 > 1:
+        branches += [hailstone_tree((n-1)//3, h-1)]
     return tree(n, branches)
 
 
